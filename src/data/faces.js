@@ -1,22 +1,6 @@
 export const faces = {
   science: [
     {
-      name: "nikola tesla",
-      img: "/images/tesla.png",
-      hints: [
-        { q: "Born in 1856 in the Austrian Empire", a: true },
-        { q: "Never married & died alone, in a hotel room", a: true },
-        { q: "Came up with alternating current", a: true },
-        { q: "Never dropped out of school", a: false },
-        {
-          q: "Worked digging ditches for the Edison telephone company",
-          a: true,
-        },
-        { q: "Became an American citizen in 1959", a: false },
-      ],
-      article: "https://en.wikipedia.org/wiki/Nikola_Tesla",
-    },
-    {
       name: "marie curie",
       img: "/images/marie-curie.jpg",
       hints: [
@@ -33,19 +17,6 @@ export const faces = {
       article: "https://en.wikipedia.org/wiki/Marie_Curie",
     },
     {
-      name: "george washington carver",
-      img: "/images/george-carver.jpg",
-      hints: [
-        { q: "Was born into slavery", a: true },
-        { q: "Became a famous botanist/inventor", a: true },
-        { q: "Tried his hand at stand-up comedy as a student", a: false },
-        { q: "Was a Communist", a: false },
-        { q: "Discovered more than 300 uses for the peanut", a: true },
-        { q: "Did not invent peanut butter", a: true },
-      ],
-      article: "https://en.wikipedia.org/wiki/George_Washington_Carver",
-    },
-    {
       name: "albert einstein",
       img: "/images/einstein.jpg",
       hints: [
@@ -57,6 +28,35 @@ export const faces = {
         { q: "All his teachers loved him", a: false },
       ],
       article: "https://biographyonline.net/scientists/albert-einstein.html",
+    },
+    {
+      name: "nikola tesla",
+      img: "/images/tesla.png",
+      hints: [
+        { q: "Born in 1856 in the Austrian Empire", a: true },
+        { q: "Never married & died alone, in a hotel room", a: true },
+        { q: "Came up with alternating current", a: true },
+        { q: "Never dropped out of school", a: false },
+        {
+          q: "Worked digging ditches for the Edison telephone company",
+          a: true,
+        },
+        { q: "Became an American citizen in 1959", a: false },
+      ],
+      article: "https://en.wikipedia.org/wiki/Nikola_Tesla",
+    },
+    {
+      name: "george washington carver",
+      img: "/images/george-carver.jpg",
+      hints: [
+        { q: "Was born into slavery", a: true },
+        { q: "Became a famous botanist/inventor", a: true },
+        { q: "Tried his hand at stand-up comedy as a student", a: false },
+        { q: "Was a Communist", a: false },
+        { q: "Discovered more than 300 uses for the peanut", a: true },
+        { q: "Did not invent peanut butter", a: true },
+      ],
+      article: "https://en.wikipedia.org/wiki/George_Washington_Carver",
     },
   ],
   movies: [

@@ -74,8 +74,8 @@ function renderCategorySelect() {
       height="90px"
       class="img-logo"
     />
-  <button onclick="window.location.hash='/dashboard'">Dashboard</button><br/>
-  <button onclick="window.location.hash='/rss'">RSS</button><br/>
+  <button onclick="window.location.hash='/dashboard'" style="background-color:green;">Dashboard</button><br/>
+  <button onclick="window.location.hash='/rss'" style="background-color:brown;">RSS</button><br/>
   `;
   const categories = ["science", "movies", "music", "history", "sports"];
   categories.forEach((cat) => {
@@ -313,12 +313,12 @@ function renderDashboard() {
 
   app.innerHTML = `
   <h2 class="dashboard-h2">Dashboard</h2>
-      <p>Global streak: ${streak} day(s)</p>
-      <p>Science streak: ${scienceStreak} day(s)</p>
-      <p>Movies streak: ${moviesStreak} day(s)</p>
-    <p>Music streak: ${musicStreak} day(s)</p>
-    <p>History streak: ${historyStreak} day(s)</p>
-    <p>Sports streak: ${sportsStreak} day(s)</p>
+      <p>Global streak: ${streak} ${+streak === 1 ? "day" : "days"}</p>
+      <p>Science streak: ${scienceStreak} ${+scienceStreak === 1 ? "day" : "days"}</p>
+      <p>Movies streak: ${moviesStreak} ${+moviesStreak === 1 ? "day" : "days"}</p>
+    <p>Music streak: ${musicStreak} ${+musicStreak === 1 ? "day" : "days"}</p>
+    <p>History streak: ${historyStreak} ${+historyStreak === 1 ? "day" : "days"}</p>
+    <p>Sports streak: ${sportsStreak} ${+sportsStreak === 1 ? "day" : "days"}</p>
     <p>Badges: ${
       scienceStreak >= 5 ? "🔬 Science Buff " : ""
     }${moviesStreak >= 5 ? "🎞️ Cinema Buff " : ""}${
@@ -326,7 +326,7 @@ function renderDashboard() {
     }${historyStreak >= 5 ? "📜 History Buff " : ""}${
       sportsStreak >= 5 ? "🏅 Sports Buff " : ""
     }</p>
-    <button onclick="window.location.hash='/'">Back to categories</button>
+    <button onclick="window.location.hash='/'">Home</button>
     `;
   //   <button id="clearBtn">Clear storage</button>
   // document.getElementById("clearBtn").onclick = () => clearStorage();
@@ -347,13 +347,9 @@ function renderDashboard() {
 
 function renderFeed() {
   app.innerHTML = `
-  <div style="position: relative; width: 100%; padding-top: 177.78%; /* Aspect ratio: 1600/900 * 100 */">
+  <div style="position: relative; width: 100%;min-width:330px;">
   <button style="position:absolute;top:5%;left:3%;z-index:100" onclick="window.location.hash='/'">Home</button>
-    <iframe 
-        src="https://rss.app/embed/v1/wall/EJgWxl4K4JqFddkC" 
-        frameborder="0" 
-        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;">
-    </iframe>
+  <iframe width="328" height="548" src="https://rss.app/embed/v1/wall/tFEkkPbun2w3lCoB" frameborder="0"></iframe>
 </div>
   `;
 }
@@ -365,7 +361,7 @@ function renderAbout() {
   <h2>About Us</h2>
   <p>
   We are everyday people who're enthusiastic about the identities and life-stories of humans who have excelled, or simply fascinate us. This site was launched in 2026.
-  This site is owned and operated by occiandiaali.com, in association with id8 Media.
+  This site is owned and operated by <a href="https://www.occiandiaali.com">occiandiaali.com</a>, in association with id8 Media.
   </p>
   <h2>Contact Us</h2>
   <form action="" method="get" class="form-example">
@@ -415,7 +411,7 @@ Cookies are files with small amount of data that is commonly used an anonymous u
 
 Our website uses these "cookies" to collection information and to improve our Service. You have the option to either accept or refuse these cookies, and know when a cookie is being sent to your computer. If you choose to refuse our cookies, you may not be able to use some portions of our Service.
 
-We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site. These companies may use non-personally identifiable information (e.g., click stream information, browser type, time and date, subject of advertisements clicked or scrolled over) during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you. These companies typically use a cookie or third party web beacon to collect this information. To learn more about this behavioral advertising practice or to opt-out of this type of advertising, you can visit optout.networkadvertising.org
+We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site. These companies may use non-personally identifiable information (e.g., click stream information, browser type, time and date, subject of advertisements clicked or scrolled over) during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you. These companies typically use a cookie or third party web beacon to collect this information. To learn more about this behavioral advertising practice, you can visit <a href="https://www.cookieyes.com/blog/advertising-cookies/#advertising-cookies">What are cookies</a>
   </p>
  </div> 
   `;
