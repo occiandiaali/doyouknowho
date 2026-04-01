@@ -65,16 +65,17 @@ function renderCategorySelect() {
   //   console.log("Category:", category);
   //   console.log("Entries:", data[category]);
   // });
+  //       <img
+  //   src="/images/applogo.png"
+  //   alt="famouspersondaily"
+  //   width="200px"
+  //   height="90px"
+  //   class="img-logo"
+  // />
 
   app.innerHTML = `
-        <img
-      src="/images/applogo.png"
-      alt="famouspersondaily"
-      width="200px"
-      height="90px"
-      class="img-logo"
-    />
-  <button onclick="window.location.hash='/dashboard'" style="background-color:green;">Dashboard</button><br/>
+    <h1 class="app-title">guesswhodaily</h1>
+  <button onclick="window.location.hash='/dashboard'" style="background-color:orange;">Dashboard</button><br/>
   <button onclick="window.location.hash='/rss'" style="background-color:brown;">RSS</button><br/>
   `;
   const categories = ["science", "movies", "music", "history", "sports"];
@@ -270,7 +271,7 @@ function renderGame(category) {
     shareBtn.onclick = () => {
       const streak = localStorage.getItem("streak") || 0;
       const catStreak = localStorage.getItem(`streak-${category}`) || 0;
-      const text = `🎉 I guessed today's ${category} face (${answer})!\nGlobal streak: ${streak} days\n${category} streak: ${catStreak} days`;
+      const text = `🎉 I guessed today's ${category} daily who: ${answer}!\nGlobal streak: ${streak} day(s)\n${category} streak: ${catStreak} day(s)`;
       navigator.clipboard.writeText(text).then(() => {
         alert("Result copied to clipboard!");
       });
