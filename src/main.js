@@ -10,7 +10,7 @@ function router() {
     renderGame(cat);
   } else if (route === "/dashboard") {
     renderDashboard();
-  } else if (route === "/rss") {
+  } else if (route === "/today-in-history") {
     renderFeed();
   } else if (route === "/about") {
     renderAbout();
@@ -75,8 +75,8 @@ function renderCategorySelect() {
 
   app.innerHTML = `
     <h1 class="app-title">guesswhodaily</h1>
-  <button onclick="window.location.hash='/dashboard'" style="background-color:orange;">Dashboard</button><br/>
-  <button onclick="window.location.hash='/rss'" style="background-color:brown;">RSS</button><br/>
+  <button onclick="window.location.hash='/dashboard'" style="background-color:green;">Dashboard</button><br/>
+  <button onclick="window.location.hash='/today-in-history'" style="background-color:brown;">Today In History</button><br/>
   `;
   const categories = ["science", "movies", "music", "history", "sports"];
   categories.forEach((cat) => {
@@ -347,12 +347,66 @@ function renderDashboard() {
 // }
 
 function renderFeed() {
+  // const original = new Date().toLocaleDateString("en-US", {
+  //   month: "long",
+  //   day: "numeric",
+  // });
+  // let newStr = original.replace(/ /g, "_");
+
+  const dataUrl = "https://history.muffinlabs.com/date"; //`https://history.muffinlabs.com/${newStr}`;
+
+  fetch(dataUrl)
+    .then((response) => response.json())
+    .then((d) => {
+      // console.log("Births: ", d.data.Births);
+      // console.log("Data: ", d.data.Deaths);
+      // console.log("Data: ", d.data.Events);
+      const bEl = document.getElementById("births");
+      const dEl = document.getElementById("deaths");
+      const eEl = document.getElementById("events");
+
+      bEl.innerHTML = d.data.Births.slice(500, 531).map(
+        (it) =>
+          '<div  class="b-item">' + "<p>" + it.no_year_html + "</p>" + "</div>",
+      );
+      dEl.innerHTML = d.data.Deaths.slice(200, 235).map(
+        (it) =>
+          '<div  class="d-item">' + "<p>" + it.no_year_html + "</p>" + "</div>",
+      );
+      eEl.innerHTML = d.data.Events.slice(30, 45).map(
+        (it) =>
+          '<div  class="e-item">' + "<p>" + it.no_year_html + "</p>" + "</div>",
+      );
+    })
+    .catch((err) => console.error("Error fetching data", err));
   app.innerHTML = `
-  <div style="position: relative; width: 100%;min-width:330px;">
-  <button style="position:absolute;top:5%;left:3%;z-index:100" onclick="window.location.hash='/'">Home</button>
-  <iframe width="328" height="548" src="https://rss.app/embed/v1/wall/tPZlfu237mILQSqm" frameborder="0"></iframe>
+ 
+  <button id="feedToHomeBtn" onclick="window.location.hash='/'">Home</button>
+  
+  <div class="history-div">
+  <div >
+  <h4>Births On This Day</h4>
+  <div class="b-carousel" id="births">
+
 </div>
+
+  </div>
+    <div >
+  <h4>Deaths On This Day</h4>
+    <div class="b-carousel" id="deaths">
+
+</div>
+  </div>
+    <div>
+  <h4>Events On This Day</h4>
+    <div class="b-carousel" id="events">
+
+</div>
+  </div>
+  </div>
+
   `;
+  // <iframe width="328" height="548" src="https://rss.app/embed/v1/wall/tPZlfu237mILQSqm" frameborder="0"></iframe>
 }
 
 function renderAbout() {

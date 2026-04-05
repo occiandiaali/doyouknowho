@@ -132,6 +132,12 @@
       .policy-div {
         margin-top: 6%;
       }
+      .history-div {
+        width: 100%;
+        background-color: rgb(236, 236, 228);
+        padding: 6px;
+        margin-top: 6%;
+      }
 
       /** */
       #joystick {
@@ -155,6 +161,41 @@
         top: 40px;
       }
       /** */
+      .b-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        width: 100%;
+        text-align: center;
+      }
+
+      .b-item {
+        min-width: 100%;
+        height: 68px;
+        padding: 8px;
+        margin: 6px;
+        background-color: rgb(252, 181, 169);
+        scroll-snap-align: start;
+      }
+      .d-item {
+        min-width: 100%;
+        height: 68px;
+        padding: 8px;
+        margin: 6px;
+        background-color: rgb(97, 71, 85);
+        color: white;
+        scroll-snap-align: start;
+      }
+      .e-item {
+        min-width: 100%;
+        height: 150px;
+        padding: 8px;
+        margin: 6px;
+        background-color: rgb(95, 133, 101);
+        color: white;
+        scroll-snap-align: start;
+      }
+
       @media screen and (max-width: 600px) {
         .challenge-div {
           margin-top: 13%;
@@ -175,7 +216,19 @@
         .policy-div {
           margin-top: 18%;
         }
+        .history-div {
+          position: absolute;
+          left: 0;
+          top: 10%;
+        }
+        #feedToHomeBtn {
+          position: fixed;
+          top: 5%;
+          left: 3%;
+          z-index: 100;
+        }
       }
+      /* style="position:absolute;top:5%;left:3%;z-index:100" */
     </style>
     <!-- Confetti.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
