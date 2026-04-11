@@ -365,17 +365,38 @@ function renderFeed() {
       const dEl = document.getElementById("deaths");
       const eEl = document.getElementById("events");
 
-      bEl.innerHTML = d.data.Births.slice(500, 531).map(
+      bEl.innerHTML = d.data.Births.slice(100, 227).map(
         (it) =>
-          '<div  class="b-item">' + "<p>" + it.no_year_html + "</p>" + "</div>",
+          '<div  class="b-item">' +
+          "<p>" +
+          "(" +
+          it.year +
+          ") " +
+          it.no_year_html +
+          "</p>" +
+          "</div>",
       );
-      dEl.innerHTML = d.data.Deaths.slice(200, 235).map(
+      dEl.innerHTML = d.data.Deaths.slice(99, 119).map(
         (it) =>
-          '<div  class="d-item">' + "<p>" + it.no_year_html + "</p>" + "</div>",
+          '<div  class="d-item">' +
+          "<p>" +
+          "(" +
+          it.year +
+          ") " +
+          it.no_year_html +
+          "</p>" +
+          "</div>",
       );
-      eEl.innerHTML = d.data.Events.slice(30, 45).map(
+      eEl.innerHTML = d.data.Events.slice(0, 55).map(
         (it) =>
-          '<div  class="e-item">' + "<p>" + it.no_year_html + "</p>" + "</div>",
+          '<div  class="e-item">' +
+          "<p>" +
+          "(" +
+          it.year +
+          ")" +
+          "</p>" +
+          it.no_year_html +
+          "</div>",
       );
     })
     .catch((err) => console.error("Error fetching data", err));
