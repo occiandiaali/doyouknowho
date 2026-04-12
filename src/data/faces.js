@@ -1,6 +1,25 @@
 export const faces = {
   science: [
     {
+      name: "isaac newton",
+      img: "/images/isaac_newton.jpg",
+      hints: [
+        {
+          q: "Widely regarded as one of the most influential scientists of all time",
+          a: true,
+        },
+        { q: "His father died 3 months before he was born, in 1643", a: true },
+        { q: "Came up with laws of motion", a: true },
+        { q: "He married his childhood sweetheart", a: false },
+        {
+          q: "His mother withdrew him from school, so that he could work as a farmer",
+          a: true,
+        },
+        { q: "He and his step-father were very close", a: false },
+      ],
+      article: "https://biographyonline.net/scientists/isaac-newton.html",
+    },
+    {
       name: "marie curie",
       img: "/images/marie-curie.jpg",
       hints: [
@@ -15,6 +34,31 @@ export const faces = {
         { q: "Contested in the 1905 Polish presidential elections", a: false },
       ],
       article: "https://en.wikipedia.org/wiki/Marie_Curie",
+    },
+    {
+      name: "stephen hawking",
+      img: "/images/hawking.jpg",
+      hints: [
+        {
+          q: "Male, born in 1942, English Physicist, was first to offer a theory of cosmology",
+          a: true,
+        },
+        {
+          q: "He has portrayed himself on TV shows like The Simpsons and Star Trek",
+          a: true,
+        },
+        { q: "Talked alot about black holes", a: true },
+        { q: "Because of his ailment, he never married", a: false },
+        {
+          q: "He was struck by motor-neuron disease for decades, and turned down a knighthood",
+          a: true,
+        },
+        {
+          q: "At one stage,doctors gave him at least 10 years to live after his diagnosis",
+          a: false,
+        },
+      ],
+      article: "https://biographyonline.net/scientists/stephen-hawking.html",
     },
     {
       name: "albert einstein",

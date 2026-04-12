@@ -160,12 +160,14 @@ function renderGame(category) {
           img.style.filter = filters[filterLevel];
         }
         status.textContent = "Correct hint!";
+        status.style.color = "#000";
         btn.style.backgroundColor = "gold";
         btn.style.color = "black";
         btn.disabled = true;
       } else {
         guessesLeft--;
         status.textContent = `Wrong hint. Guesses left: ${guessesLeft}`;
+        status.style.color = "#f00";
         btn.style.backgroundColor = "red";
         btn.disabled = true;
       }
@@ -187,6 +189,7 @@ function renderGame(category) {
     } else {
       guessesLeft--;
       status.textContent = `Incorrect. Guesses left: ${guessesLeft}`;
+      status.style.color = "#f00";
       if (guessesLeft <= 0) {
         endGame(false, data.name, category);
       }
