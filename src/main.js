@@ -409,20 +409,20 @@ function renderFeed() {
   
   <div class="history-div">
   <div >
-  <h4>Births On This Day</h4>
+  <h4>Born On This Day</h4>
   <div class="b-carousel" id="births">
 
 </div>
 
   </div>
     <div >
-  <h4>Deaths On This Day</h4>
+  <h4>Died On This Day</h4>
     <div class="b-carousel" id="deaths">
 
 </div>
   </div>
     <div>
-  <h4>Events On This Day</h4>
+  <h4>Event On This Day</h4>
     <div class="b-carousel" id="events">
 
 </div>

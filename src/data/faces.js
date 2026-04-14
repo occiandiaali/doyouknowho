@@ -105,6 +105,31 @@ export const faces = {
   ],
   movies: [
     {
+      name: "arnold schwarzenegger",
+      img: "/images/arnold.jpg",
+      hints: [
+        {
+          q: "Austrian/American professional body-builder, actor, and politician",
+          a: true,
+        },
+        {
+          q: "Began lifting weights at the age of 15 and won the Mr. Universe bodybuilding championship at the age of 20",
+          a: true,
+        },
+        {
+          q: "His father, Gustav, was the local chief of police in their Austria hometown",
+          a: true,
+        },
+        { q: "Has never been married", a: false },
+        {
+          q: "His breakthrough movie role came in 1982-as a Barbarian",
+          a: true,
+        },
+        { q: "Born in Hong Kong & raised in San Francisco", a: false },
+      ],
+      article: "https://en.wikipedia.org/wiki/Arnold_Schwarzenegger",
+    },
+    {
       name: "julia roberts",
       img: "/images/julia-roberts.jpg",
       hints: [
@@ -169,6 +194,28 @@ export const faces = {
   ],
   music: [
     {
+      name: "fela kuti",
+      img: "/images/fela.jpg",
+      hints: [
+        { q: "Male, Nigerian musician and political activist", a: true },
+        { q: "In 1978, he married 27 women", a: true },
+        { q: "Regarded as the principal innovator of Afrobeat music", a: true },
+        {
+          q: "His songs were mostly performed in the French language",
+          a: false,
+        },
+        {
+          q: "His mother was an anti-colonial feminist, and his father was an Anglican minister",
+          a: true,
+        },
+        {
+          q: "He was awarded a Grammy award for Song of the Year, in 1985",
+          a: false,
+        },
+      ],
+      article: "https://en.wikipedia.org/wiki/Fela_Kuti",
+    },
+    {
       name: "freddie mercury",
       img: "/images/freddy-mercury.jpg",
       hints: [
@@ -194,7 +241,6 @@ export const faces = {
       ],
       article: "https://en.wikipedia.org/wiki/Kanye_West",
     },
-    ,
     {
       name: "michael jackson",
       img: "/images/mike-jack.jpg",
