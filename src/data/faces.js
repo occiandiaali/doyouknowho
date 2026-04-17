@@ -242,6 +242,31 @@ export const faces = {
       article: "https://en.wikipedia.org/wiki/Kanye_West",
     },
     {
+      name: "the beatles",
+      img: "/images/beatles.jpg",
+      hints: [
+        { q: "4-man English rock band, formed in 1960", a: true },
+        {
+          q: "Have the 2nd most number-one singles on the US Billboard Hot 100",
+          a: false,
+        },
+        {
+          q: "Three of the original bandmates were in their early 30s when they started",
+          a: false,
+        },
+        {
+          q: "Starred in the 1964 musical comedy, 'A Hard Days Night'",
+          a: true,
+        },
+        { q: "One band member died in 1980, another in 2001", a: true },
+        {
+          q: "The 11th (and last) album they recorded had something to do with Abbey Road",
+          a: true,
+        },
+      ],
+      article: "https://en.wikipedia.org/wiki/The_Beatles",
+    },
+    {
       name: "michael jackson",
       img: "/images/mike-jack.jpg",
       hints: [
@@ -253,6 +278,31 @@ export const faces = {
         { q: "Ran the New York marathon at 16", a: false },
       ],
       article: "https://en.wikipedia.org/wiki/Michael_Jackson",
+    },
+    {
+      name: "sunny ade",
+      img: "/images/sunny_ade.jpg",
+      hints: [
+        {
+          q: "Male, Nigerian singer, songwriter & multi-instrumentalist",
+          a: true,
+        },
+        {
+          q: "Regarded as one of the first African pop musicians to gain international success",
+          a: true,
+        },
+        {
+          q: "His 1983 album earned him a Grammy nomination-a first for a Nigerian act",
+          a: true,
+        },
+        { q: "Was called a 'King', even though he wasn't royalty", a: false },
+        {
+          q: "His music was featured in a 1983 film starring Richard Gere",
+          a: true,
+        },
+        { q: "Ran the New York marathon at 16", a: false },
+      ],
+      article: "https://en.wikipedia.org/wiki/King_Sunny_Ad%C3%A9",
     },
   ],
   history: [

@@ -74,8 +74,15 @@ function renderCategorySelect() {
   // />
 
   app.innerHTML = `
-    <h1 class="app-title">guesswhodaily</h1>
-  <button onclick="window.location.hash='/dashboard'" style="background-color:green;">Dashboard</button><br/>
+    
+            <img
+    src="/face-guess.svg"
+    alt="guesswhodaily"
+    width="200px"
+    height="90px"
+    class="img-logo"
+  />
+  <button onclick="window.location.hash='/dashboard'" style="background-color:green;margin-top: 10%">Dashboard</button><br/>
   <button onclick="window.location.hash='/today-in-history'" style="background-color:brown;">Today In History</button><br/>
   `;
   const categories = ["science", "movies", "music", "history", "sports"];
@@ -110,10 +117,12 @@ function renderGame(category) {
     //console.log("data", data.article);
   } else {
     const options = faces[category];
-    const randomFace = options[Math.floor(Math.random() * options.length)];
+    const randomIdx = Math.floor(Math.random() * options.length);
+    const randomFace = options[randomIdx]; //options[Math.floor(Math.random() * options.length)];
     data = randomFace;
-    // console.log("randomFacedata", data.article);
-    localStorage.setItem(key, JSON.stringify(randomFace));
+    //console.log("randomFacedata", data);
+    //localStorage.setItem(key, JSON.stringify(randomFace));
+    localStorage.setItem(key, JSON.stringify(data));
   }
 
   let guessesLeft = 4;
@@ -188,7 +197,7 @@ function renderGame(category) {
       endGame(true, data.name, category);
     } else {
       guessesLeft--;
-      status.textContent = `Incorrect. Guesses left: ${guessesLeft}`;
+      status.textContent = `Incorrect. It could also be because of the spelling. Guesses left: ${guessesLeft}`;
       status.style.color = "#f00";
       if (guessesLeft <= 0) {
         endGame(false, data.name, category);
@@ -238,6 +247,7 @@ function renderGame(category) {
     //   : `Out of guesses! It's ${answer}.`;
 
     status.textContent = won ? "You got it! It's " : "Out of guesses! It's ";
+    status.style.color = won ? "#000" : "#f00";
 
     const link = document.createElement("a");
     link.href = "#"; //data.article;
@@ -316,6 +326,7 @@ function renderDashboard() {
   const sportsStreak = localStorage.getItem("streak-sports") || 0;
 
   app.innerHTML = `
+  <button onclick="window.location.hash='/'" id="feedToHomeBtn">Home</button>
   <h2 class="dashboard-h2">Dashboard</h2>
       <p>Global streak: ${streak} ${+streak === 1 ? "day" : "days"}</p>
       <p>Science streak: ${scienceStreak} ${+scienceStreak === 1 ? "day" : "days"}</p>
@@ -330,7 +341,7 @@ function renderDashboard() {
     }${historyStreak >= 5 ? "📜 History Buff " : ""}${
       sportsStreak >= 5 ? "🏅 Sports Buff " : ""
     }</p>
-    <button onclick="window.location.hash='/'">Home</button>
+    
     `;
   //   <button id="clearBtn">Clear storage</button>
   // document.getElementById("clearBtn").onclick = () => clearStorage();
@@ -405,7 +416,7 @@ function renderFeed() {
     .catch((err) => console.error("Error fetching data", err));
   app.innerHTML = `
  
-  <button id="feedToHomeBtn" onclick="window.location.hash='/'">Home</button>
+  
   
   <div class="history-div">
   <div >
@@ -439,7 +450,8 @@ function renderAbout() {
   <button onclick="window.location.hash='/'">Home</button>
   <h2>About Us</h2>
   <p>
-  We are everyday people who're enthusiastic about the identities and life-stories of humans who have excelled, or simply fascinate us. This site was launched in 2026.
+  We are enthusiastic about the identities and life-stories of humans who have excelled, or are simply fascinating. This site was launched in 2026 as a means of learning
+  about such people in a fun way. Once a day, get to identify a notable name from hints provided. Build streaks in several categories, and return everyday for more.
   This site is owned and operated by <a href="https://www.occiandiaali.com">occiandiaali.com</a>, in association with id8 Media.
   </p>
   <h2>Contact Us</h2>
@@ -462,10 +474,8 @@ function renderPolicy() {
   app.innerHTML = `
   <div class="policy-div">
   <button onclick="window.location.hash='/'">Home</button>
-  <h2>Privacy Policy</h2>
+  <h2>Policies</h2>
   <p>
-  This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service.
-
 If you choose to use our Service, then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
 </p>
 <p>

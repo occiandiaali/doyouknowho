@@ -14,12 +14,25 @@
         /* margin: 0.5rem auto; */
         margin: 0 auto;
         padding: 4px;
+        /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=47d1ba&c2=f1ffad&gt=l&gd=dbr
+*/
+        background: #47d1ba;
+        background: linear-gradient(135deg, #47d1ba, #f1ffad);
+        background-attachment: fixed;
       }
       img {
         max-width: 300px;
         margin: 1rem auto;
         display: block;
         transition: filter 0.5s ease;
+      }
+
+      #appName {
+        color: rgb(65, 58, 58);
+        text-decoration: none;
+        font-weight: 600;
       }
 
       button {
@@ -134,7 +147,7 @@
       }
       .history-div {
         width: 100%;
-        background-color: rgb(236, 236, 228);
+        /* background-color: rgb(236, 236, 228); */
         padding: 6px;
         margin-top: 6%;
       }
@@ -175,8 +188,13 @@
         height: 68px;
         padding: 8px;
         margin: 6px;
-        background-color: rgb(252, 181, 169);
+        /* background-color: rgb(252, 181, 169); */
+        background-color: rgb(8, 107, 21);
         scroll-snap-align: start;
+        color: white;
+      }
+      .b-item a {
+        color: rgb(248, 119, 97);
       }
       .d-item {
         min-width: 100%;
@@ -192,7 +210,7 @@
         height: 150px;
         padding: 8px;
         margin: 6px;
-        background-color: rgb(125, 184, 134);
+        background-color: rgb(250, 102, 176);
         color: rgb(248, 248, 246);
         scroll-snap-align: start;
       }
@@ -207,8 +225,11 @@
         .app-title {
           margin-top: 20%;
         }
-        .dashboard-h2 {
+        .img-logo {
           margin-top: 20%;
+        }
+        .dashboard-h2 {
+          margin-top: 38%;
           font-family: Arial, Helvetica, sans-serif;
         }
         .about-div {
@@ -224,8 +245,8 @@
         }
         #feedToHomeBtn {
           position: fixed;
-          top: 5%;
-          left: 3%;
+          top: 10%;
+          right: 35%;
           z-index: 100;
         }
       }
@@ -236,17 +257,13 @@
   </head>
   <body>
     <nav>
-      Built by
-      <a
-        href="https://occiandiaali.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        >occian f diaali</a
+      <span id="appName" onclick="window.location.hash = '/'"
+        >GuessWhoDaily</span
       >
       |
       <a href="#/about">About</a>
       |
-      <a href="#/policy">Terms</a>
+      <a href="#/policy">Policies</a>
     </nav>
     <!-- <img
       src="/images/famous-logo.png"
