@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/face-guess.svg" />
+    <link rel="icon" type="image/svg+xml" href="/images/app-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GuessWhoDaily | Identify the notable names & faces in history</title>
 
@@ -22,12 +22,12 @@
         background: linear-gradient(135deg, #47d1ba, #f1ffad);
         background-attachment: fixed;
       }
-      img {
+      /* img {
         max-width: 300px;
         margin: 1rem auto;
         display: block;
         transition: filter 0.5s ease;
-      }
+      } */
 
       #appName {
         color: rgb(65, 58, 58);
@@ -76,48 +76,93 @@
       } */
       nav {
         position: fixed;
-        top: 5px;
-        left: 10%;
+        top: 0;
+        left: 5%;
         margin: 12px;
         font-size: small;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 300;
+      }
+      nav a {
+        text-decoration: none;
+        margin: auto 8px;
+        color: rgb(250, 247, 247);
+        font-weight: 700;
+        text-shadow: 1px 2px 2px green;
+      }
+      nav a:hover {
+        color: #750d0d;
+        text-decoration: underline;
+      }
+      nav img:hover {
+        cursor: pointer;
       }
 
       .modal {
         display: none;
         position: fixed;
         z-index: 1000;
-        left: 0;
+        /* left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
+        overflow: auto; */
+        inset: 0; /* short for top/right/bottom/left:0 */
         background-color: rgba(0, 0, 0, 0.4);
+        opacity: 0; /* start invisible */
+        transition: opacity 0.3s ease; /* fade effect */
+      }
+      .modal.show {
+        display: block;
+        opacity: 1; /* fade to visible */
+      }
+      .modal.hide {
+        opacity: 0;
       }
 
       .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 94%;
-        /* height: 86vh;
-        align-content: center; */
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 0; /* allows iframe fit cleanly */
+        border-radius: 8px;
+        width: 90%;
+        max-width: 900px;
+        height: 80vh; /* fixed viewport height */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* contain iframe scroll */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        animation: slideDown 0.3s ease; /* optional slide effect */
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
       .close-button {
         color: red;
         position: absolute;
-        top: 8%;
-        right: 3%;
+        top: 2%;
+        right: 10%;
         font-size: 28px;
         font-weight: bold;
         cursor: pointer;
       }
 
-      iframe {
-        overflow: auto;
-        margin-right: 5%;
+      .modal-content iframe {
+        flex: 1; /* take remaining space */
+        width: 100%;
+        border: none;
+        overflow-y: auto; /* vertical scroll only */
       }
       #loadingIframe {
         position: absolute;
@@ -131,7 +176,10 @@
         margin-top: 6%;
       }
       .about-div {
-        margin-top: 4%;
+        margin: 6% auto;
+        padding: 12px;
+        width: 320px;
+        height: auto;
       }
       /* .img-logo {
         margin-top: 6%;
@@ -139,11 +187,18 @@
       .app-title {
         margin-top: 8%;
       }
-      .dashboard-h2 {
-        margin-top: 6%;
+
+      .dashboard-div {
+        margin: 6% auto;
+        padding: 12px;
+        width: 320px;
+        height: auto;
       }
       .policy-div {
-        margin-top: 6%;
+        margin: 6% auto;
+        padding: 12px;
+        width: 320px;
+        height: auto;
       }
       .history-div {
         width: 100%;
@@ -210,14 +265,78 @@
         height: 150px;
         padding: 8px;
         margin: 6px;
-        background-color: rgb(250, 102, 176);
+        background-color: rgb(197, 77, 137);
         color: rgb(248, 248, 246);
         scroll-snap-align: start;
       }
 
+      /* categories grid */
+      /* .grid-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+      } */
+      .grid-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .category {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        /* width: 140px;
+        height: 140px; */
+        margin-top: 5%;
+        background-size: cover;
+        background-position: center;
+        /* border-radius: 8px; */
+        border: 6px solid #fff; /* white border like a photo */
+        border-bottom: 20px solid #fff; /* thicker bottom edge for polaroid feel */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* drop shadow */
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        /* color: white; */
+        color: #750d0d;
+        font-weight: bold;
+        font-size: 1.2em;
+        /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+        transition: transform 0.3s ease; */
+        text-shadow: 0 3px 6px rgba(255, 255, 255, 0.9);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+        background-color: #fff; /* ensures border blends with background */
+      }
+
+      /* Tilt effect */
+      .category:nth-child(odd) {
+        transform: rotate(-4deg);
+      }
+      .category:nth-child(even) {
+        transform: rotate(4deg);
+      }
+
+      .category:hover {
+        transform: scale(1.1) rotate(0deg);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+
       @media screen and (max-width: 600px) {
         .challenge-div {
-          margin-top: 13%;
+          margin-top: 32%;
+        }
+        .category {
+          margin-top: 2%;
+        }
+        .headDiv {
+          margin-top: 21%;
         }
         /* .img-logo {
           margin-top: 13%;
@@ -233,10 +352,10 @@
           font-family: Arial, Helvetica, sans-serif;
         }
         .about-div {
-          margin-top: 16%;
+          margin-top: 25%;
         }
         .policy-div {
-          margin-top: 18%;
+          margin-top: 25%;
         }
         .history-div {
           position: absolute;
@@ -257,12 +376,19 @@
   </head>
   <body>
     <nav>
-      <span id="appName" onclick="window.location.hash = '/'"
+      <!-- <span id="appName" onclick="window.location.hash = '/'"
         >GuessWhoDaily</span
-      >
-      |
+      > -->
+      <img
+        src="/images/app-logo.png"
+        alt="guesswhodaily"
+        width="84px"
+        height="84px"
+        onclick="window.location.hash = '/'"
+      />
+
       <a href="#/about">About</a>
-      |
+
       <a href="#/policy">Policies</a>
     </nav>
     <!-- <img

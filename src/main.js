@@ -71,25 +71,62 @@ function renderCategorySelect() {
   //   width="200px"
   //   height="90px"
   //   class="img-logo"
+  //   <img
+  // src="/face-guess.svg"
+  // alt="guesswhodaily"
+  // width="200px"
+  // height="90px"
+  // class="img-logo"
+  // />
   // />
 
   app.innerHTML = `
-    
-            <img
-    src="/face-guess.svg"
-    alt="guesswhodaily"
-    width="200px"
-    height="90px"
-    class="img-logo"
-  />
-  <button onclick="window.location.hash='/dashboard'" style="background-color:green;margin-top: 10%">Dashboard</button><br/>
-  <button onclick="window.location.hash='/today-in-history'" style="background-color:brown;">Today In History</button><br/>
+  <div class="headDiv">
+  <button onclick="window.location.hash='/dashboard'" style="background-color:green;margin-top: 10%" id="dashboardBtn">Dashboard</button>
+  <button onclick="window.location.hash='/today-in-history'" style="background-color:brown;">Today In History</button>
+  </div>
+  
   `;
-  const categories = ["science", "movies", "music", "history", "sports"];
-  categories.forEach((cat) => {
-    const btn = document.createElement("button");
 
-    btn.textContent = cat;
+  const categories = [
+    {
+      title: "science",
+      bg: "/images/science.png",
+    },
+    {
+      title: "movies",
+      bg: "/images/movies.png",
+    },
+    {
+      title: "music",
+      bg: "/images/music.png",
+    },
+    {
+      title: "history",
+      bg: "/images/history.jpg",
+    },
+    {
+      title: "sports",
+      bg: "/images/sports.png",
+    },
+    {
+      title: "leaders",
+      bg: "/images/leaders.png",
+    },
+  ];
+
+  // Create wrapper div
+  const gridWrapper = document.createElement("div");
+  gridWrapper.className = "grid-wrapper";
+
+  categories.forEach((cat) => {
+    const btn = document.createElement("div");
+    btn.className = "category";
+    btn.style.backgroundImage = `url(${cat.bg})`;
+    const capTitle =
+      cat.title.charAt(0).toLocaleUpperCase() + cat.title.slice(1);
+    btn.textContent = capTitle; //cat.title;
+
     btn.onclick = () => {
       const today = new Date().toDateString();
       const lastPlayed = localStorage.getItem("lastPlayed");
@@ -97,12 +134,13 @@ function renderCategorySelect() {
         alert("You already played today's game! Come back tomorrow.");
         window.location.hash = "/dashboard";
       } else {
-        window.location.hash = `/game?cat=${cat}`;
-        renderGame(cat);
+        window.location.hash = `/game?cat=${cat.title}`;
+        renderGame(cat.title);
       }
     };
-    app.appendChild(btn);
+    gridWrapper.appendChild(btn);
   });
+  app.appendChild(gridWrapper);
 }
 
 function renderGame(category) {
@@ -143,8 +181,10 @@ function renderGame(category) {
   img.style.filter = filters[filterLevel];
   app.appendChild(img);
 
+  const br = document.createElement("br");
   const input = document.createElement("input");
   input.placeholder = "Enter name guess...";
+  app.appendChild(br);
   app.appendChild(input);
 
   const guessBtn = document.createElement("button");
@@ -292,25 +332,40 @@ function renderGame(category) {
     app.appendChild(shareBtn);
   }
 }
-const modal = document.getElementById("modal");
 // const modalTitle = document.getElementById("modal-title");
 // const modalBody = document.getElementById("modal-body");
+const modal = document.getElementById("modal");
 const closeButton = document.querySelector(".close-button");
 const modalIframe = document.getElementById("modalIframe");
 const loadingIframe = document.getElementById("loadingIframe");
-closeButton.addEventListener("click", function () {
-  modal.style.display = "none";
-});
 
 function renderModal(url, ans) {
   loadingIframe.style.display = "block";
-  // modalTitle.textContent = url;
-  // modalBody.textContent = "The modal works!";
   modalIframe.title = ans;
   modalIframe.src = url;
-  modal.style.display = "block";
-  modalIframe.onload = loadingIframe.style.display = "none";
+  modal.classList.remove("hide");
+  modal.classList.add("show"); // triggers fade-in
+  modal.style.display = "block"; // ensure it's visible
+  modalIframe.onload = () => {
+    loadingIframe.style.display = "none";
+  };
 }
+
+closeButton.addEventListener("click", function () {
+  // trigger fade out
+  modal.classList.remove("show");
+  modal.classList.add("hide");
+
+  // waits for transition to finish, then hides completely
+  setTimeout(() => {
+    modal.style.display = "none";
+    modalIframe.src = ""; // clear old page
+    modal.classList.remove("hide");
+  }, 300); // match CSS transition duration
+});
+
+// modalTitle.textContent = url;
+// modalBody.textContent = "The modal works!";
 window.onclick = function (event) {
   if (event.target === modal) {
     modal.style.display = "none";
@@ -323,10 +378,12 @@ function renderDashboard() {
   const moviesStreak = localStorage.getItem("streak-movies") || 0;
   const musicStreak = localStorage.getItem("streak-music") || 0;
   const historyStreak = localStorage.getItem("streak-history") || 0;
+  const leaderStreak = localStorage.getItem("streak-leaders") || 0;
   const sportsStreak = localStorage.getItem("streak-sports") || 0;
 
+  // <button onclick="window.location.hash='/'" id="feedToHomeBtn">Home</button>
   app.innerHTML = `
-  <button onclick="window.location.hash='/'" id="feedToHomeBtn">Home</button>
+  <div class="dashboard-div">
   <h2 class="dashboard-h2">Dashboard</h2>
       <p>Global streak: ${streak} ${+streak === 1 ? "day" : "days"}</p>
       <p>Science streak: ${scienceStreak} ${+scienceStreak === 1 ? "day" : "days"}</p>
@@ -334,14 +391,17 @@ function renderDashboard() {
     <p>Music streak: ${musicStreak} ${+musicStreak === 1 ? "day" : "days"}</p>
     <p>History streak: ${historyStreak} ${+historyStreak === 1 ? "day" : "days"}</p>
     <p>Sports streak: ${sportsStreak} ${+sportsStreak === 1 ? "day" : "days"}</p>
+    <p>Leaders streak: ${leaderStreak} ${+leaderStreak === 1 ? "day" : "days"}</p>
     <p>Badges: ${
       scienceStreak >= 5 ? "🔬 Science Buff " : ""
     }${moviesStreak >= 5 ? "🎞️ Cinema Buff " : ""}${
       musicStreak >= 5 ? "🎵 Music Buff " : ""
     }${historyStreak >= 5 ? "📜 History Buff " : ""}${
       sportsStreak >= 5 ? "🏅 Sports Buff " : ""
-    }</p>
-    
+    }${leaderStreak >= 5 ? "🌟 Leaders Buff " : ""}</p>
+    </div>
+    <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
+
     `;
   //   <button id="clearBtn">Clear storage</button>
   // document.getElementById("clearBtn").onclick = () => clearStorage();
@@ -383,7 +443,7 @@ function renderFeed() {
         (it) =>
           '<div  class="b-item">' +
           "<p>" +
-          "(" +
+          "(In " +
           it.year +
           ") " +
           it.no_year_html +
@@ -394,7 +454,7 @@ function renderFeed() {
         (it) =>
           '<div  class="d-item">' +
           "<p>" +
-          "(" +
+          "(In " +
           it.year +
           ") " +
           it.no_year_html +
@@ -405,7 +465,7 @@ function renderFeed() {
         (it) =>
           '<div  class="e-item">' +
           "<p>" +
-          "(" +
+          "(In " +
           it.year +
           ")" +
           "</p>" +
@@ -414,30 +474,39 @@ function renderFeed() {
       );
     })
     .catch((err) => console.error("Error fetching data", err));
-  app.innerHTML = `
- 
-  
-  
+  // Get current day and month name
+  const today = new Date();
+  const dayNumber = today.getDate(); // Gets the current day number (1-31)
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const monthName = monthNames[today.getMonth()]; // Gets the current month name
+
+  app.innerHTML = `  
   <div class="history-div">
-  <div >
-  <h4>Born On This Day</h4>
-  <div class="b-carousel" id="births">
 
-</div>
+  <h4>Born ${monthName} ${dayNumber}</h4>
+  <div class="b-carousel" id="births"></div>
 
-  </div>
-    <div >
-  <h4>Died On This Day</h4>
+  <h4>Died ${monthName} ${dayNumber}</h4>
     <div class="b-carousel" id="deaths">
+    </div>
 
-</div>
-  </div>
-    <div>
-  <h4>Event On This Day</h4>
-    <div class="b-carousel" id="events">
-
-</div>
-  </div>
+  
+  <h4>Happened on ${monthName} ${dayNumber}</h4>
+    <div class="b-carousel" id="events"></div>
+    <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
   </div>
 
   `;
@@ -445,35 +514,37 @@ function renderFeed() {
 }
 
 function renderAbout() {
+  // <button onclick="window.location.hash='/'">Home</button>
   app.innerHTML = `
   <div class="about-div">
-  <button onclick="window.location.hash='/'">Home</button>
   <h2>About Us</h2>
   <p>
-  We are enthusiastic about the identities and life-stories of humans who have excelled, or are simply fascinating. This site was launched in 2026 as a means of learning
-  about such people in a fun way. Once a day, get to identify a notable name from hints provided. Build streaks in several categories, and return everyday for more.
-  This site is owned and operated by <a href="https://www.occiandiaali.com">occiandiaali.com</a>, in association with id8 Media.
+  We are enthusiastic about the identities and life-stories of humans who have excelled, or are simply fascinating. <strong>GuessWhoDaily</strong> was launched in 2026 as a means of learning
+  about such people in a fun way. Once a day, choose a category to test your knowledge & learn more about some of the most famous/infamous/notable humans in history. 
+  Guess who it is from the hints provided. Build streaks in several categories, share with your friends or social media, and return everyday for more.
+  <strong>GuessWhoDaily</strong> is owned and operated by <a href="https://www.occiandiaali.com">occiandiaali.com</a>.
   </p>
-  <h2>Contact Us</h2>
+  <h2>Send Feedback</h2>
+
   <form action="" method="get" class="form-example">
   <div class="form-example">
-    
-    <input type="email" name="email" id="email" placeholder="Your Email" required />
+    <input type="email" name="email" id="email" placeholder="Your Email" required disabled/>
   </div>
     <div class="form-example">
-    <textarea rows="4" cols="15" name="message" id="message" placeholder="Message here.."></textarea>
-    
+    <textarea rows="4" cols="26" name="message" id="message" placeholder="Message here.." disabled></textarea>
   </div>
+  <input type="submit" value="Submit" style="width:120px;background:black;color:white;cursor:not-allowed;border:none;" disabled/>
 
 </form>
+<footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
 </div>
   `;
 }
 
 function renderPolicy() {
+  // <button onclick="window.location.hash='/'">Home</button>
   app.innerHTML = `
   <div class="policy-div">
-  <button onclick="window.location.hash='/'">Home</button>
   <h2>Policies</h2>
   <p>
 If you choose to use our Service, then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
@@ -502,6 +573,7 @@ Our website uses these "cookies" to collection information and to improve our Se
 
 We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site. These companies may use non-personally identifiable information (e.g., click stream information, browser type, time and date, subject of advertisements clicked or scrolled over) during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you. These companies typically use a cookie or third party web beacon to collect this information. To learn more about this behavioral advertising practice, you can visit <a href="https://www.cookieyes.com/blog/advertising-cookies/#advertising-cookies">What are cookies</a>
   </p>
+  <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
  </div> 
   `;
 }

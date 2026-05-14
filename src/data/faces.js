@@ -307,17 +307,26 @@ export const faces = {
   ],
   history: [
     {
-      name: "nnamdi azikiwe",
-      img: "/images/azikiwe.jpg",
+      name: "amelia earhart",
+      img: "/images/earhart.jpg",
       hints: [
-        { q: "Spoke 3 major Nigerian languages", a: true },
-        { q: "Studied in the US", a: true },
-        { q: "Journalist, and first Nigerian president", a: true },
+        {
+          q: "Female, American aviator and aviation pioneer who became one of the most celebrated figures of early flight",
+          a: true,
+        },
+        { q: "Was a best-selling author", a: true },
+        {
+          q: "As a child, spent hours climbing trees, hunting rats with a rifle, and sledding downhill",
+          a: true,
+        },
         { q: "Was a race-car driver in the US in the 1920s", a: false },
-        { q: "Known as Zik of Africa", a: true },
-        { q: "Died at 51 years of age", a: false },
+        {
+          q: "In 1932, became the first woman to make a nonstop, solo, transatlantic flight",
+          a: true,
+        },
+        { q: "Died at 61 years of age in her sister's arms", a: false },
       ],
-      article: "https://en.wikipedia.org/wiki/Nnamdi_Azikiwe",
+      article: "https://en.wikipedia.org/wiki/Amelia_Earhart",
     },
     {
       name: "abraham lincoln",
@@ -344,6 +353,82 @@ export const faces = {
         { q: "Spent 27 years in prison", a: true },
       ],
       article: "https://en.wikipedia.org/wiki/Nelson_Mandela",
+    },
+  ],
+  leaders: [
+    {
+      name: "patrice lumumba",
+      img: "/images/lumumba.jpg",
+      hints: [
+        { q: "Iconic, male, African leader", a: true },
+        { q: "First prime minister of the First Congolese Republic", a: true },
+        { q: "Was assassinated at just 35", a: true },
+        { q: "Was a painfully shy young man", a: false },
+        {
+          q: "Born on 2 July 1925, his original surname meant 'heir of the cursed.'",
+          a: true,
+        },
+        { q: "Raised in a Moslem family", a: false },
+      ],
+      article: "https://en.wikipedia.org/wiki/Patrice_Lumumba",
+    },
+    {
+      name: "kofi annan",
+      img: "/images/kofi-annan.jpg",
+      hints: [
+        { q: "Ghanaian diplomat and statesman", a: true },
+        { q: "Won the 2001 Nobel Peace Prize", a: true },
+        {
+          q: "His name in his local dialect corresponds to the name of the day on which he was born. Friday.",
+          a: true,
+        },
+        { q: "He lived to the age of 102", a: false },
+        { q: "He has said that his surname rhymes with 'cannon'", a: true },
+        {
+          q: "During the 1994 Rwanda genocide, he singlehandedly acted to save more than 100 thousand people. ",
+          a: false,
+        },
+      ],
+      article: "https://en.wikipedia.org/wiki/Kofi_Annan",
+    },
+    {
+      name: "abraham lincoln",
+      img: "/images/lincoln.png",
+      hints: [
+        { q: "The 16th US President", a: true },
+        { q: "Born in France", a: false },
+        { q: "Assassinated in 1865", a: true },
+        { q: "Once owned slaves", a: true },
+        { q: "Often seen wearing a top hat", a: true },
+        { q: "Played cricket with the Sultan of Brunei", a: false },
+      ],
+      article: "https://en.wikipedia.org/wiki/Abraham_Lincoln",
+    },
+    {
+      name: "nelson mandela",
+      img: "/images/mandela.jpg",
+      hints: [
+        { q: "Trained and practiced as a Lawyer", a: true },
+        { q: "First black president of South Africa", a: true },
+        { q: "Co-starred in Driving Miss Daisy", a: false },
+        { q: "Loved boxing", a: true },
+        { q: "Discovered River Niger while sailing a boat", a: false },
+        { q: "Spent 27 years in prison", a: true },
+      ],
+      article: "https://en.wikipedia.org/wiki/Nelson_Mandela",
+    },
+    {
+      name: "nnamdi azikiwe",
+      img: "/images/azikiwe.jpg",
+      hints: [
+        { q: "Spoke 3 major Nigerian languages", a: true },
+        { q: "Studied in the US", a: true },
+        { q: "Journalist, and first Nigerian president", a: true },
+        { q: "Was a race-car driver in the US in the 1920s", a: false },
+        { q: "Known as Zik of Africa", a: true },
+        { q: "Died at 51 years of age", a: false },
+      ],
+      article: "https://en.wikipedia.org/wiki/Nnamdi_Azikiwe",
     },
   ],
   sports: [
