@@ -590,6 +590,7 @@ function renderFeed() {
 
     <h4>Happened on ${monthName} ${dayNumber}</h4>
     <div id="events"></div>
+    <p class="attrib">Data is courtesy of: <a href="https://history.muffinlabs.com/">Muffin Labs</a></p>
     <div style="margin-bottom:10%"></div>
     <footer style="margin: 18px auto;font-size:small;color:gray;position:fixed;bottom:0;left:auto;">
       &copy; GuessWhoDaily 2026 | All rights reserved
