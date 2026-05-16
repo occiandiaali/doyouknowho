@@ -420,63 +420,147 @@ function renderDashboard() {
 //   }
 // }
 
-function renderFeed() {
-  // const original = new Date().toLocaleDateString("en-US", {
-  //   month: "long",
-  //   day: "numeric",
-  // });
-  // let newStr = original.replace(/ /g, "_");
+// function renderFeed() {
+//   // const original = new Date().toLocaleDateString("en-US", {
+//   //   month: "long",
+//   //   day: "numeric",
+//   // });
+//   // let newStr = original.replace(/ /g, "_");
 
-  const dataUrl = "https://history.muffinlabs.com/date"; //`https://history.muffinlabs.com/${newStr}`;
+//   const dataUrl = "https://history.muffinlabs.com/date"; //`https://history.muffinlabs.com/${newStr}`;
+
+//   fetch(dataUrl)
+//     .then((response) => response.json())
+//     .then((d) => {
+//       // console.log("Births: ", d.data.Births);
+//       // console.log("Data: ", d.data.Deaths);
+//       // console.log("Data: ", d.data.Events);
+//       const bEl = document.getElementById("births");
+//       const dEl = document.getElementById("deaths");
+//       const eEl = document.getElementById("events");
+
+//       bEl.innerHTML = d.data.Births.slice(0, 227).map(
+//         (it) =>
+//           '<div  class="b-item">' +
+//           "<p>" +
+//           "(In " +
+//           it.year +
+//           ") " +
+//           it.no_year_html +
+//           "</p>" +
+//           "</div>",
+//       );
+//       dEl.innerHTML = d.data.Deaths.slice(0, 121).map(
+//         (it) =>
+//           '<div  class="d-item">' +
+//           "<p>" +
+//           "(In " +
+//           it.year +
+//           ") " +
+//           it.no_year_html +
+//           "</p>" +
+//           "</div>",
+//       );
+//       eEl.innerHTML = d.data.Events.slice(0, 81).map(
+//         (it) =>
+//           '<div  class="e-item">' +
+//           "<p>" +
+//           "(In " +
+//           it.year +
+//           ")" +
+//           "</p>" +
+//           it.no_year_html +
+//           "</div>",
+//       );
+//     })
+//     .catch((err) => console.error("Error fetching data", err));
+//   // Get current day and month name
+//   const today = new Date();
+//   const dayNumber = today.getDate(); // Gets the current day number (1-31)
+//   const monthNames = [
+//     "January",
+//     "February",
+//     "March",
+//     "April",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
+//     "September",
+//     "October",
+//     "November",
+//     "December",
+//   ];
+//   const monthName = monthNames[today.getMonth()]; // Gets the current month name
+
+//   app.innerHTML = `
+//   <div class="history-div">
+
+//   <h4>Born ${monthName} ${dayNumber}</h4>
+//   <div class="b-carousel" id="births"></div>
+
+//   <h4>Died ${monthName} ${dayNumber}</h4>
+//     <div class="b-carousel" id="deaths">
+//     </div>
+
+//   <h4>Happened on ${monthName} ${dayNumber}</h4>
+//     <div class="b-carousel" id="events"></div>
+//     <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
+//   </div>
+
+//   `;
+//   // <iframe width="328" height="548" src="https://rss.app/embed/v1/wall/tPZlfu237mILQSqm" frameborder="0"></iframe>
+// }
+function renderFeed() {
+  const dataUrl = "https://history.muffinlabs.com/date";
 
   fetch(dataUrl)
     .then((response) => response.json())
     .then((d) => {
-      // console.log("Births: ", d.data.Births);
-      // console.log("Data: ", d.data.Deaths);
-      // console.log("Data: ", d.data.Events);
       const bEl = document.getElementById("births");
       const dEl = document.getElementById("deaths");
       const eEl = document.getElementById("events");
 
-      bEl.innerHTML = d.data.Births.slice(100, 227).map(
-        (it) =>
-          '<div  class="b-item">' +
-          "<p>" +
-          "(In " +
-          it.year +
-          ") " +
-          it.no_year_html +
-          "</p>" +
-          "</div>",
-      );
-      dEl.innerHTML = d.data.Deaths.slice(99, 119).map(
-        (it) =>
-          '<div  class="d-item">' +
-          "<p>" +
-          "(In " +
-          it.year +
-          ") " +
-          it.no_year_html +
-          "</p>" +
-          "</div>",
-      );
-      eEl.innerHTML = d.data.Events.slice(0, 55).map(
-        (it) =>
-          '<div  class="e-item">' +
-          "<p>" +
-          "(In " +
-          it.year +
-          ")" +
-          "</p>" +
-          it.no_year_html +
-          "</div>",
-      );
+      // Helper to cycle items with fade effect
+      function cycleItems(container, items, className, interval = 5000) {
+        let index = 0;
+        let paused = false;
+        container.innerHTML = "";
+
+        const div = document.createElement("div");
+        div.className = className;
+        container.appendChild(div);
+
+        function showItem() {
+          if (paused) return;
+          const it = items[index];
+          div.style.opacity = 0;
+          setTimeout(() => {
+            div.innerHTML =
+              "<p>(In " + it.year + ") " + it.no_year_html + "</p>";
+            div.style.opacity = 1;
+          }, 500);
+          index = (index + 1) % items.length;
+        }
+
+        showItem();
+        const timer = setInterval(showItem, interval);
+
+        // Tap to pause/resume
+        div.addEventListener("click", () => {
+          paused = !paused;
+          if (!paused) showItem();
+        });
+      }
+
+      cycleItems(bEl, d.data.Births.slice(0, 227), "b-item");
+      cycleItems(dEl, d.data.Deaths.slice(0, 121), "d-item");
+      cycleItems(eEl, d.data.Events.slice(0, 81), "e-item");
     })
     .catch((err) => console.error("Error fetching data", err));
-  // Get current day and month name
+
   const today = new Date();
-  const dayNumber = today.getDate(); // Gets the current day number (1-31)
+  const dayNumber = today.getDate();
   const monthNames = [
     "January",
     "February",
@@ -491,26 +575,27 @@ function renderFeed() {
     "November",
     "December",
   ];
-  const monthName = monthNames[today.getMonth()]; // Gets the current month name
+  const monthName = monthNames[today.getMonth()];
 
   app.innerHTML = `  
   <div class="history-div">
 
-  <h4>Born ${monthName} ${dayNumber}</h4>
-  <div class="b-carousel" id="births"></div>
+  <span id="historyLinksInfo"><strong>Tap/Untap</strong> the plain text to control fade, or the links to open Wikipedia</span><br/>
 
-  <h4>Died ${monthName} ${dayNumber}</h4>
-    <div class="b-carousel" id="deaths">
-    </div>
+    <h4>Born ${monthName} ${dayNumber}</h4>
+    <div id="births"></div>
 
-  
-  <h4>Happened on ${monthName} ${dayNumber}</h4>
-    <div class="b-carousel" id="events"></div>
-    <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
+    <h4>Died ${monthName} ${dayNumber}</h4>
+    <div id="deaths"></div>
+
+    <h4>Happened on ${monthName} ${dayNumber}</h4>
+    <div id="events"></div>
+    <div style="margin-bottom:10%"></div>
+    <footer style="margin: 18px auto;font-size:small;color:gray;position:fixed;bottom:0;left:auto;">
+      &copy; GuessWhoDaily 2026 | All rights reserved
+    </footer>
   </div>
-
   `;
-  // <iframe width="328" height="548" src="https://rss.app/embed/v1/wall/tPZlfu237mILQSqm" frameborder="0"></iframe>
 }
 
 function renderAbout() {
