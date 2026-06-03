@@ -16,7 +16,7 @@
         padding: 4px; */
         margin: 0;
         padding: 0;
-        min-width: 300px;
+        min-width: 320px;
         height: auto;
         /*
 * Created with https://www.css-gradient.com
@@ -351,12 +351,26 @@
         z-index: 1;
       }
 
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 35%;
+        margin: 0 auto;
+        font-size: small;
+        color: rgb(100, 98, 98);
+      }
+
       @media screen and (max-width: 600px) {
         .challenge-div {
           margin-top: 32%;
         }
         .category {
           margin-top: 2%;
+          width: 80px;
+          height: 80px;
+        }
+        .grid-wrapper {
+          margin: 15% auto;
         }
         .headDiv {
           margin-top: 21%;
@@ -376,7 +390,7 @@
         }
         .history-div h4 {
           font-size: 16px;
-          margin-top: 12px;
+          /* margin-top: 12px; */
         }
         /* .img-logo {
           margin-top: 13%;
@@ -400,13 +414,22 @@
         .history-div {
           position: absolute;
           left: 0;
-          top: 10%;
+          top: 15%;
         }
         #feedToHomeBtn {
           position: fixed;
           top: 10%;
           right: 35%;
           z-index: 100;
+        }
+        footer {
+          padding-left: 16px;
+          left: auto;
+        }
+
+        nav img {
+          width: 84px;
+          height: 84px;
         }
       }
       /* style="position:absolute;top:5%;left:3%;z-index:100" */
@@ -419,11 +442,18 @@
       <!-- <span id="appName" onclick="window.location.hash = '/'"
         >GuessWhoDaily</span
       > -->
-      <img
+      <!-- <img
         src="/images/appLogo.png"
         alt="guesswhodaily"
         width="84px"
         height="84px"
+        onclick="window.location.hash = '/'"
+      /> -->
+      <img
+        src="/images/appLogo.png"
+        alt="guesswhodaily"
+        width="120px"
+        height="120px"
         onclick="window.location.hash = '/'"
       />
 
@@ -454,7 +484,7 @@
       </div>
     </div>
 
-    <!-- <footer>
+    <!-- <footer style="position: fixed; bottom: 0; left: auto">
       Built by
       <a
         href="https://occiandiaali.com"
@@ -467,8 +497,10 @@
       |
       <a href="#/policy">Terms</a>
     </footer> -->
+    <div style="margin-bottom: 10%"></div>
+    <footer>&copy; GuessWhoDaily 2026 | All rights reserved</footer>
     <script type="module" src="/src/main.js"></script>
-    <script>
+    <!-- <script>
       (function () {
         function sendEvent() {
           fetch("https://website-analytic-g3up.onrender.com/track", {
@@ -492,6 +524,6 @@
           if (!document.hidden) sendEvent();
         });
       })();
-    </script>
+    </script> -->
   </body>
 </html>

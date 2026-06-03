@@ -1,4 +1,4 @@
-import { faces } from "./data/faces";
+//import { faces } from "./data/faces";
 
 const app = document.getElementById("app");
 
@@ -150,17 +150,41 @@ function renderGame(category) {
   const today = new Date().toDateString();
   const key = `daily-${category}-${today}`;
   let data = localStorage.getItem(key);
-  if (data) {
+  if (data !== null) {
     data = JSON.parse(data);
     //console.log("data", data.article);
+    //https://raw.githubusercontent.com/occiandiaali/occiandiaali.github.io/refs/heads/main/GuessWhoData/faces.json
+    //
   } else {
-    const options = faces[category];
-    const randomIdx = Math.floor(Math.random() * options.length);
-    const randomFace = options[randomIdx]; //options[Math.floor(Math.random() * options.length)];
-    data = randomFace;
-    //console.log("randomFacedata", data);
-    //localStorage.setItem(key, JSON.stringify(randomFace));
-    localStorage.setItem(key, JSON.stringify(data));
+    try {
+      fetch(
+        "https://raw.githubusercontent.com/occiandiaali/guesswhodaily-faces-jsonhost/refs/heads/main/faces.json",
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // console.log("============");
+          // console.log("GuessWhoData: ");
+          // console.log("=============");
+          // console.log(data[category]);
+          const options = data[category];
+          const randomIdx = Math.floor(Math.random() * options.length);
+          const randomFace = options[randomIdx]; //options[Math.floor(Math.random() * options.length)];
+          data = randomFace;
+          //console.log("randomFacedata", data);
+          //localStorage.setItem(key, JSON.stringify(randomFace));
+          localStorage.setItem(key, JSON.stringify(data));
+          window.location.reload();
+        });
+    } catch (error) {
+      console.error("Catch error: ", error);
+    }
+    // const options = faces[category];
+    // const randomIdx = Math.floor(Math.random() * options.length);
+    // const randomFace = options[randomIdx]; //options[Math.floor(Math.random() * options.length)];
+    // data = randomFace;
+    // //console.log("randomFacedata", data);
+    // //localStorage.setItem(key, JSON.stringify(randomFace));
+    // localStorage.setItem(key, JSON.stringify(data));
   }
 
   let guessesLeft = 4;
@@ -175,11 +199,14 @@ function renderGame(category) {
   ];
 
   const img = document.createElement("img");
-  img.src = data.img;
-  // console.log("ImgSrc ", img.src);
-  img.style.height = "240px";
-  img.style.filter = filters[filterLevel];
-  app.appendChild(img);
+  if (data.img !== null) {
+    //  console.log(`Typeof data-img: ${typeof data.img}`);
+    img.src = data.img;
+    // console.log("ImgSrc ", img.src);
+    img.style.height = "240px";
+    img.style.filter = filters[filterLevel];
+    app.appendChild(img);
+  }
 
   const br = document.createElement("br");
   const input = document.createElement("input");
@@ -400,9 +427,9 @@ function renderDashboard() {
       sportsStreak >= 5 ? "🏅 Sports Buff " : ""
     }${leaderStreak >= 5 ? "🌟 Leaders Buff " : ""}</p>
     </div>
-    <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
-
+    
     `;
+  //<footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
   //   <button id="clearBtn">Clear storage</button>
   // document.getElementById("clearBtn").onclick = () => clearStorage();
 }
@@ -590,13 +617,13 @@ function renderFeed() {
 
     <h4>Happened on ${monthName} ${dayNumber}</h4>
     <div id="events"></div>
-    <p class="attrib">Data is courtesy of: <a href="https://history.muffinlabs.com/">Muffin Labs</a></p>
-    <div style="margin-bottom:10%"></div>
-    <footer style="margin: 18px auto;font-size:small;color:gray;position:fixed;bottom:0;left:auto;">
-      &copy; GuessWhoDaily 2026 | All rights reserved
-    </footer>
-  </div>
-  `;
+    <p class="attrib">Data source: <a href="https://history.muffinlabs.com/">Muffin Labs</a></p>
+     <div style="margin-bottom:10%"></div>
+    </div>
+    `;
+  // <footer style="margin: 18px auto;font-size:small;color:gray;position:fixed;bottom:0;left:auto;">
+  //   &copy; GuessWhoDaily 2026 | All rights reserved
+  // </footer>
 }
 
 function renderAbout() {
@@ -612,19 +639,31 @@ function renderAbout() {
   </p>
   <h2>Send Feedback</h2>
 
-  <form action="" method="get" class="form-example">
+  <form class="form-example">
   <div class="form-example">
-    <input type="email" name="email" id="email" placeholder="Your Email" required disabled/>
+    <input type="email" name="email" id="email" placeholder="Your Email" required/>
   </div>
     <div class="form-example">
-    <textarea rows="4" cols="26" name="message" id="message" placeholder="Message here.." disabled></textarea>
+    <input type="text" name="subject" id="subject" placeholder="Email subject" required />
   </div>
-  <input type="submit" value="Submit" style="width:120px;background:black;color:white;cursor:not-allowed;border:none;" disabled/>
-
-</form>
-<footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
-</div>
+    <div class="form-example">
+    <textarea rows="4" cols="26" name="message" id="message" placeholder="Message here.."></textarea>
+  </div>
+  <button id="sendMail" style="width:120px;background:black;color:white;cursor:pointer;border:none;">Send</button>
+  
+  </form>
+  </div>
   `;
+  //<footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
+  // <input type="submit" value="Submit" style="width:120px;background:black;color:white;cursor:not-allowed;border:none;" disabled/>
+  document.getElementById("sendMail").addEventListener("click", function () {
+    const email = document.getElementById("email").value;
+    const subject = document.getElementById("subject").value;
+    const message = document.getElementById("message").value;
+
+    const mailtoLink = `mailto:occiandiaali@gmail.com?from=${email}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+    window.location.href = mailtoLink;
+  });
 }
 
 function renderPolicy() {
@@ -659,7 +698,7 @@ Our website uses these "cookies" to collection information and to improve our Se
 
 We allow third-party companies to serve ads and/or collect certain anonymous information when you visit our web site. These companies may use non-personally identifiable information (e.g., click stream information, browser type, time and date, subject of advertisements clicked or scrolled over) during your visits to this and other Web sites in order to provide advertisements about goods and services likely to be of greater interest to you. These companies typically use a cookie or third party web beacon to collect this information. To learn more about this behavioral advertising practice, you can visit <a href="https://www.cookieyes.com/blog/advertising-cookies/#advertising-cookies">What are cookies</a>
   </p>
-  <footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
- </div> 
+  </div> 
   `;
+  //<footer style="margin: 18px auto;font-size:small;color:gray;">&copy; GuessWhoDaily 2026 | All rights reserved</footer>
 }
